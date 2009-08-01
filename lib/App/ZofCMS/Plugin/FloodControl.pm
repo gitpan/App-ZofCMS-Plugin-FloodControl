@@ -3,7 +3,7 @@ package App::ZofCMS::Plugin::FloodControl;
 use warnings;
 use strict;
 
-our $VERSION = '0.0102';
+our $VERSION = '0.0103';
 
 use DBI;
 use base 'App::ZofCMS::Plugin::Base';
