@@ -3,7 +3,7 @@ package App::ZofCMS::Plugin::FloodControl;
 use warnings;
 use strict;
 
-our $VERSION = '0.0101';
+our $VERSION = '0.0102';
 
 use DBI;
 use base 'App::ZofCMS::Plugin::Base';
@@ -189,8 +189,21 @@ and L<App::ZofCMS::Plugin::DBI>
         },
     }
 
+    plug_flood_control => sub {
+        my ( $t, $q, $config ) = @_;
+        return {
+            dsn             => "DBI:mysql:database=test;host=localhost",
+            user            => 'test',
+            pass            => 'test',
+        };
+    }
+
 Plugin uses C<plug_flood_control> first-level key that can be specified in either (or both)
-Main Config File or ZofCMS Template file. The key takes a hashref as a value. If the keys of
+Main Config File or ZofCMS Template file. The key takes a hashref or a subref as a value. If subref is specified,
+its return value will be assigned to C<plug_flood_control> as if it was already there. If sub returns
+an C<undef>, then plugin will stop further processing. The C<@_> of the subref will
+contain (in that order): ZofCMS Tempalate hashref, query parameters hashref and
+L<App::ZofCMS::Config> object. If the keys of
 that hashref are specified in both files will take their values from ZofCMS Template.
 Most of these keys are optional with sensible defaults. Possible keys/values are as follows:
 
